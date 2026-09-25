@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Student Union — Faculty of Nursing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0a1330; --navy2:#121e46; --navy3:#1a2a58; --line:#28345f;
+  --gold:#d8b46a; --gold-d:#a9843f; --text:#f3f5fb; --muted:#8f97ba;
+  --sci:#5b8def; --cul:#d472b3; --spo:#3fc17f; --art:#e2913f;
+  --r:16px; --rs:10px;
+  box-sizing:border-box;
+}
+*{box-sizing:inherit;margin:0;padding:0;}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  font-family:'Inter',sans-serif; background:var(--navy); color:var(--text);
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  min-height:100%; -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;border:none;cursor:pointer;background:none;color:inherit;}
+.app{max-width:480px;margin:0 auto;position:relative;min-height:100vh;background:var(--navy);
+  border-inline:1px solid var(--line);}
+
+/* HEADER */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(10,19,48,.92);backdrop-filter:blur(8px);
+  padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand .crest{width:34px;height:34px;border-radius:50%;background:linear-gradient(160deg,var(--gold),var(--gold-d));
+  display:flex;align-items:center;justify-content:center;font-size:16px;}
+.brand-txt h1{font-size:14px;font-weight:700;letter-spacing:.2px;}
+.brand-txt p{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;}
+.top-actions{display:flex;gap:14px;align-items:center;}
+.icon-btn{width:34px;height:34px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;
+  font-size:15px;position:relative;}
+.dot{position:absolute;top:5px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--art);border:2px solid var(--navy);}
+
+/* VIEWS */
+.view{display:none;padding:16px 18px 100px;}
+.view.active{display:block;}
+.greeting{margin:6px 0 16px;}
+.greeting h2{font-size:19px;font-weight:700;}
+.greeting p{font-size:12.5px;color:var(--muted);margin-top:2px;}
+
+/* HERO CAROUSEL */
+.hero{position:relative;border-radius:var(--r);overflow:hidden;height:210px;
+  background:linear-gradient(180deg,rgba(10,19,48,.15),rgba(10,19,48,.85)),
+  linear-gradient(135deg,#22346b,#0f1a3d);}
+.hero-tag{position:absolute;top:14px;left:14px;background:var(--art);font-size:10px;font-weight:700;
+  padding:4px 10px;border-radius:999px;letter-spacing:.3px;}
+.hero-body{position:absolute;bottom:14px;left:14px;right:14px;}
+.hero-body h3{font-size:18px;font-weight:800;margin-bottom:4px;}
+.hero-meta{font-size:11.5px;color:#cfd6ee;display:flex;gap:10px;margin-bottom:10px;}
+.countdown{display:flex;gap:6px;margin-bottom:10px;}
+.countdown div{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:8px;
+  padding:5px 8px;text-align:center;min-width:42px;}
+.countdown div b{display:block;font-size:14px;font-weight:800;}
+.countdown div span{font-size:8px;color:var(--muted);text-transform:uppercase;}
+.btn-primary{background:var(--gold);color:#221a06;font-weight:700;font-size:12.5px;
+  padding:9px 16px;border-radius:999px;display:inline-block;}
+.dots{display:flex;gap:5px;justify-content:center;margin-top:10px;}
+.dots span{width:5px;height:5px;border-radius:50%;background:var(--line);}
+.dots span.on{background:var(--gold);width:14px;border-radius:3px;}
+
+/* QUICK ACTIONS */
+.section-title{font-size:14px;font-weight:700;margin:22px 0 12px;display:flex;justify-content:space-between;align-items:center;}
+.section-title small{font-size:11px;color:var(--gold);font-weight:600;}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+.quick-item{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:10.5px;color:var(--muted);}
+.quick-item .ic{width:48px;height:48px;border-radius:14px;background:var(--navy3);display:flex;align-items:center;
+  justify-content:center;font-size:19px;border:1px solid var(--line);}
+
+/* CARDS */
+.card{background:var(--navy2);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.sow-card{display:flex;gap:12px;align-items:center;}
+.avatar{width:58px;height:58px;border-radius:50%;background:linear-gradient(160deg,var(--sci),#1c2c66);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;flex-shrink:0;border:2px solid var(--gold);}
+.sow-card h4{font-size:14px;font-weight:700;}
+.sow-card p{font-size:11px;color:var(--muted);margin-top:2px;}
+.pts-badge{font-size:11px;color:var(--gold);font-weight:700;margin-top:4px;}
+
+.rank-card{display:flex;align-items:center;justify-content:space-between;}
+.rank-num{font-size:26px;font-weight:800;color:var(--gold);}
+.progress{height:7px;background:var(--navy3);border-radius:999px;margin-top:8px;overflow:hidden;}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-d),var(--gold));}
+
+.event-row{display:flex;gap:12px;align-items:center;background:var(--navy2);border:1px solid var(--line);
+  border-radius:var(--rs);padding:10px;margin-bottom:10px;}
+.event-thumb{width:52px;height:52px;border-radius:10px;background:var(--navy3);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:18px;}
+.event-row h5{font-size:13px;font-weight:700;}
+.event-row p{font-size:11px;color:var(--muted);margin-top:2px;}
+.tag{font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px;display:inline-block;margin-bottom:4px;}
+.tag.sci{background:rgba(91,141,239,.18);color:var(--sci);}
+.tag.cul{background:rgba(212,114,179,.18);color:var(--cul);}
+.tag.spo{background:rgba(63,193,127,.18);color:var(--spo);}
+.tag.art{background:rgba(226,145,63,.18);color:var(--art);}
+
+.news-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin:0 -18px;padding-inline:18px;}
+.news-chip{flex-shrink:0;width:190px;background:var(--navy2);border:1px solid var(--line);border-radius:var(--rs);padding:10px;}
+.news-chip p{font-size:11.5px;font-weight:600;line-height:1.4;}
+.news-chip span{font-size:9.5px;color:var(--muted);}
+
+/* TABS */
+.tabs{display:flex;gap:8px;overflow-x:auto;margin-bottom:14px;}
+.tab{flex-shrink:0;font-size:12px;font-weight:600;padding:7px 14px;border-radius:999px;background:var(--navy3);color:var(--muted);}
+.tab.on{background:var(--gold);color:#221a06;}
+
+/* LEADERBOARD */
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--line);}
+.lb-row:last-child{border:none;}
+.lb-pos{width:22px;font-size:12px;font-weight:700;color:var(--muted);text-align:center;}
+.lb-row.me{background:rgba(216,180,106,.08);border-radius:10px;}
+.lb-avatar{width:34px;height:34px;border-radius:50%;background:var(--navy3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+.lb-name{flex:1;font-size:12.5px;font-weight:600;}
+.lb-pts{font-size:12px;font-weight:700;color:var(--gold);}
+
+/* PROFILE */
+.profile-head{text-align:center;padding:10px 0 18px;}
+.profile-head .avatar{width:78px;height:78px;margin:0 auto 10px;font-size:26px;}
+.profile-head h2{font-size:17px;font-weight:800;}
+.profile-head p{font-size:12px;color:var(--muted);margin-top:2px;}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0;}
+.stat-box{background:var(--navy2);border:1px solid var(--line);border-radius:var(--rs);padding:10px 6px;text-align:center;}
+.stat-box b{display:block;font-size:16px;font-weight:800;}
+.stat-box span{font-size:9.5px;color:var(--muted);}
+.badge-row{display:flex;gap:10px;overflow-x:auto;}
+.badge-item{flex-shrink:0;width:64px;text-align:center;font-size:9.5px;color:var(--muted);}
+.badge-item .ic{width:52px;height:52px;border-radius:16px;background:var(--navy3);display:flex;align-items:center;
+  justify-content:center;font-size:21px;margin-bottom:5px;border:1px solid var(--line);}
+.badge-item.locked{opacity:.35;}
+
+/* GENERIC LIST/DETAIL */
+.simple-card{background:var(--navy2);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin-bottom:12px;}
+.simple-card h4{font-size:13.5px;font-weight:700;margin-bottom:4px;}
+.simple-card p{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.simple-card .meta{font-size:10.5px;color:var(--gold);margin-top:6px;}
+.people-row{display:flex;align-items:center;gap:12px;background:var(--navy2);border:1px solid var(--line);
+  border-radius:var(--rs);padding:10px;margin-bottom:8px;}
+.people-row h5{font-size:12.5px;font-weight:700;}
+.people-row span{font-size:10.5px;color:var(--muted);}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.gallery div{aspect-ratio:1;border-radius:8px;background:var(--navy3);}
+.passport-row{display:flex;justify-content:space-between;font-size:11.5px;padding:8px 0;border-bottom:1px solid var(--line);}
+.passport-row b{color:var(--gold);}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;
+  background:rgba(10,19,48,.97);backdrop-filter:blur(10px);border-top:1px solid var(--line);
+  display:flex;justify-content:space-around;align-items:center;padding:10px 4px calc(10px + env(safe-area-inset-bottom,0px));z-index:30;}
+.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--muted);flex:1;}
+.nav-item span{font-size:18px;}
+.nav-item.on{color:var(--gold);}
+
+/* DRAWER */
+.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:39;display:none;}
+.drawer-bg.open{display:block;}
+.drawer{position:fixed;top:0;right:-300px;width:270px;height:100%;background:var(--navy2);z-index:40;
+  transition:right .25s ease;padding:20px 16px;overflow-y:auto;border-left:1px solid var(--line);}
+.drawer.open{right:0;}
+.drawer h3{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:16px 0 8px;}
+.drawer-link{display:block;padding:10px 8px;font-size:13px;font-weight:600;border-radius:10px;}
+.drawer-link:active{background:var(--navy3);}
+.close-drawer{float:right;font-size:20px;color:var(--muted);}
+
+.back-row{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-top:6px;}
+.back-row .icon-btn{width:30px;height:30px;font-size:13px;}
+.back-row h2{font-size:16px;font-weight:700;}
+::-webkit-scrollbar{display:none;}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <div class="topbar" id="topbar">
+    <div class="brand">
+      <div class="crest">🩺</div>
+      <div class="brand-txt"><h1>Student Union</h1><p>Faculty of Nursing</p></div>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" onclick="go('notifications')">🔔<i class="dot"></i></button>
+      <button class="icon-btn" onclick="openDrawer()">☰</button>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="view active" id="view-home">
+    <div class="greeting"><h2>Good Morning, Ahmed 👋</h2><p>Ready to take part in today's activities?</p></div>
+
+    <div class="hero" id="heroBox"></div>
+    <div class="dots" id="heroDots"></div>
+
+    <div class="section-title">Quick Access</div>
+    <div class="quick-grid" id="quickGrid"></div>
+
+    <div class="section-title">⭐ Student of the Week</div>
+    <div class="card sow-card" id="sowBox" onclick="go('sow')"></div>
+
+    <div class="section-title">🏆 Your Ranking <small onclick="go('ranking')">See board →</small></div>
+    <div class="card rank-card" id="rankBox"></div>
+    <div class="progress" style="margin-top:-4px"><i style="width:85%"></i></div>
+
+    <div class="section-title">Upcoming Events <small onclick="go('events')">See all →</small></div>
+    <div id="upcomingBox"></div>
+
+    <div class="section-title">Latest News</div>
+    <div class="news-scroll" id="newsBox"></div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="view" id="view-events">
+    <div class="back-row"><h2>Activities & Events</h2></div>
+    <div class="tabs" id="eventTabs"></div>
+    <div id="eventList"></div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="view" id="view-ranking">
+    <div class="back-row"><h2>Student Ranking</h2></div>
+    <div class="tabs"><div class="tab on">This Week</div><div class="tab">This Month</div><div class="tab">All Time</div></div>
+    <div class="card" id="leaderboard"></div>
+  </div>
+
+  <!-- PROFILE -->
+  <div class="view" id="view-profile">
+    <div class="profile-head" id="profileHead"></div>
+    <div class="stat-grid" id="statGrid"></div>
+    <div class="section-title">My Badges <small onclick="go('badges')">See all →</small></div>
+    <div class="badge-row" id="badgeRow"></div>
+    <div class="section-title">Achievements</div>
+    <div id="achieveList"></div>
+    <div class="card" style="text-align:center;margin-top:6px" onclick="go('passport')">
+      <b style="font-size:12.5px">🎓 View My Activity Passport →</b>
+    </div>
+  </div>
+
+  <!-- GENERIC SECTIONS -->
+  <div class="view" id="view-generic">
+    <div class="back-row"><button class="icon-btn" onclick="go('home')">←</button><h2 id="genericTitle"></h2></div>
+    <div id="genericBody"></div>
+  </div>
+
+  <div class="bottom-nav">
+    <button class="nav-item on" data-nav="home" onclick="go('home')"><span>🏠</span>Home</button>
+    <button class="nav-item" data-nav="events" onclick="go('events')"><span>📅</span>Events</button>
+    <button class="nav-item" data-nav="ranking" onclick="go('ranking')"><span>🏆</span>Ranking</button>
+    <button class="nav-item" data-nav="profile" onclick="go('profile')"><span>👤</span>Profile</button>
+  </div>
+
+  <div class="drawer-bg" id="drawerBg" onclick="closeDrawer()"></div>
+  <div class="drawer" id="drawer">
+    <span class="close-drawer" onclick="closeDrawer()">✕</span>
+    <h3>Explore</h3>
+    <a class="drawer-link" onclick="go('competitions')">🎯 Competitions</a>
+    <a class="drawer-link" onclick="go('campaigns')">🩺 Awareness Campaigns</a>
+    <a class="drawer-link" onclick="go('magazines')">📚 Magazines</a>
+    <a class="drawer-link" onclick="go('media')">🖼️ Media Center</a>
+    <a class="drawer-link" onclick="go('news')">📰 All News</a>
+    <h3>Union</h3>
+    <a class="drawer-link" onclick="go('leadership')">👩‍🏫 College Leadership</a>
+    <a class="drawer-link" onclick="go('union')">👥 Student Union 26/27</a>
+    <h3>Me</h3>
+    <a class="drawer-link" onclick="go('badges')">🎖️ Badges</a>
+    <a class="drawer-link" onclick="go('passport')">🎫 Activity Passport</a>
+    <a class="drawer-link" onclick="go('sow-archive')">🥇 Student of Week Archive</a>
+    <a class="drawer-link" onclick="go('notifications')">🔔 Notifications</a>
+  </div>
+
+</div>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
